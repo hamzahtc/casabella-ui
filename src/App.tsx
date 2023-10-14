@@ -1,10 +1,20 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import axios from "axios";
+
+const endpoint = import.meta.env.VITE_PUBLIC_API_KEY + "/events";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [names, setNames] = useState([]);
+
+  useEffect(() => {
+    console.log(endpoint);
+    axios.get("http://localhost:8080/events").then((response) => {
+      setNames(response.data);
+    });
+  }, []);
 
   return (
     <>
@@ -16,20 +26,13 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {names.map((name) => (
+          <div key={name}>{name}</div>
+        ))}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
