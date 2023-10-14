@@ -11,9 +11,12 @@ function App() {
 
   useEffect(() => {
     console.log(endpoint);
-    axios.get(endpoint).then((response) => {
-      setNames(response.data);
-    });
+    axios
+      .get(endpoint)
+      .then((response) => {
+        setNames(response.data);
+      })
+      .catch((e) => console.log(e));
   }, []);
 
   return (
@@ -27,7 +30,7 @@ function App() {
         </a>
       </div>
       <div className="card">
-        {names.map((name) => (
+        {names.map(({ name }) => (
           <div key={name}>{name}</div>
         ))}
       </div>
