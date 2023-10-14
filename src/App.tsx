@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     console.log(endpoint);
-    axios.get("http://localhost:8080/events").then((response) => {
+    axios.get(endpoint).then((response) => {
       setNames(response.data);
     });
   }, []);
